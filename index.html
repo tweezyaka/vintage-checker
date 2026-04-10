@@ -1,61 +1,98 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>Vintage-Karo</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: #0f0f0f;
-      color: white;
-      text-align: center;
-    }
-    header {
-      padding: 40px;
-      font-size: 28px;
-      font-weight: bold;
-    }
-    .box {
-      margin-top: 40px;
-    }
-    input {
-      padding: 10px;
-      margin: 10px;
-    }
-    button {
-      padding: 12px 20px;
-      background: white;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .result {
-      margin-top: 20px;
-      font-size: 20px;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Vintage-Karo</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: radial-gradient(circle at top, #0a1a2f, #05080f);
+  color: white;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 50px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 60px;
+  padding: 20px;
+}
+
+.upload-box {
+  width: 350px;
+  height: 350px;
+  border: 2px dashed #2a3b55;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #0d1525;
+}
+
+.upload-box input {
+  margin-top: 10px;
+}
+
+.result-box {
+  width: 350px;
+  height: 350px;
+  border-radius: 20px;
+  background: #0d1525;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(45deg, #3b82f6, #2563eb);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+
 </head>
 
 <body>
 
-<header>Vintage-Karo 🔍</header>
+<h1>Vintage-Karo 🔍</h1>
 
-<div class="box">
-  <h2>Bild hochladen</h2>
-  <input type="file">
-  <br>
-  <button onclick="checkItem()">Check starten</button>
+<div class="container">
 
-  <div class="result" id="result"></div>
+  <div class="upload-box">
+    <p>📤 Foto hochladen</p>
+    <input type="file">
+    <button onclick="checkItem()">Check starten</button>
+  </div>
+
+  <div class="result-box" id="result">
+    Warte auf Bild-Analyse...
+  </div>
+
 </div>
 
 <script>
 function checkItem() {
   const results = [
-    "Wahrscheinlich echt ✅ – Logo und Qualität wirken sauber",
-    "Eher fake ❌ – Schrift und Tag wirken unsauber",
-    "Nicht sicher ⚠️ – Mehr Bilder nötig"
+    "✅ Echt – Logo & Qualität stimmen",
+    "❌ Fake – Schrift unsauber",
+    "⚠️ Unsicher – mehr Bilder nötig"
   ];
 
   const random = results[Math.floor(Math.random() * results.length)];
