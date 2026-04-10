@@ -1,1 +1,724 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vintage-Karo</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        linear-gradient(rgba(132, 255, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(132, 255, 0, 0.05) 1px, transparent 1px),
+        radial-gradient(circle at top, #07110d 0%, #04070c 45%, #020307 100%);
+      background-size: 40px 40px, 40px 40px, cover;
+      color: white;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1200px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(132, 255, 0, 0.12);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 84px;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+    }
+
+    .logo span {
+      color: #8dff00;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      font-size: 17px;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .nav-btn {
+      background: #8dff00;
+      color: #0a0a0a;
+      font-weight: 800;
+      padding: 15px 22px;
+      border-radius: 10px;
+      transition: 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+
+    .hero {
+      padding: 70px 0 85px;
+      min-height: 82vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .hero h1 {
+      font-size: clamp(52px, 7vw, 88px);
+      line-height: 0.95;
+      margin: 0 0 28px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      max-width: 650px;
+    }
+
+    .hero p.main {
+      margin: 0 0 24px;
+      max-width: 650px;
+      font-size: 21px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.84);
+    }
+
+    .hero p.sub {
+      margin: 0 0 34px;
+      max-width: 650px;
+      font-size: 17px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .scroll-note {
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 16px;
+    }
+
+    .hero-card {
+      background: rgba(0, 0, 0, 0.58);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 22px;
+      min-height: 430px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 60px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+    }
+
+    .hero-card-inner {
+      width: 82%;
+      aspect-ratio: 1 / 1;
+      border-radius: 26px;
+      border: 1px solid rgba(141, 255, 0, 0.15);
+      background:
+        radial-gradient(circle at center, rgba(141, 255, 0, 0.18), transparent 55%),
+        linear-gradient(135deg, rgba(141, 255, 0, 0.08), rgba(255,255,255,0.02));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .phone-icon {
+      font-size: 120px;
+      filter: drop-shadow(0 0 22px rgba(141, 255, 0, 0.35));
+    }
+
+    .check-mark {
+      position: absolute;
+      font-size: 100px;
+      color: #8dff00;
+      filter: drop-shadow(0 0 18px rgba(141, 255, 0, 0.4));
+    }
+
+    .upload-section {
+      padding: 40px 0 110px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(36px, 5vw, 58px);
+      margin: 0 0 44px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .upload-wrap {
+      width: min(760px, 100%);
+      margin: 0 auto;
+    }
+
+    .drop-zone {
+      position: relative;
+      min-height: 280px;
+      border: 2px dashed rgba(255, 255, 255, 0.16);
+      border-radius: 18px;
+      background: rgba(3, 7, 12, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 26px;
+      transition: 0.2s ease;
+      overflow: hidden;
+    }
+
+    .drop-zone.dragover {
+      border-color: rgba(141, 255, 0, 0.7);
+      background: rgba(10, 16, 8, 0.85);
+    }
+
+    .drop-zone-content {
+      pointer-events: none;
+    }
+
+    .upload-icon {
+      font-size: 54px;
+      margin-bottom: 14px;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .drop-title {
+      font-size: 21px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .drop-sub {
+      font-size: 16px;
+      color: rgba(255,255,255,0.54);
+    }
+
+    .drop-zone input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .preview-box {
+      margin-top: 18px;
+      background: rgba(6, 10, 16, 0.95);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 16px 18px;
+      display: none;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .preview-box.show {
+      display: flex;
+    }
+
+    .preview-thumb {
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .preview-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .preview-name {
+      font-size: 15px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 4px;
+    }
+
+    .preview-size {
+      font-size: 14px;
+      color: rgba(255,255,255,0.58);
+    }
+
+    .check-btn {
+      width: 100%;
+      margin-top: 18px;
+      border: none;
+      border-radius: 12px;
+      background: #8dff00;
+      color: #0a0a0a;
+      font-weight: 900;
+      font-size: 20px;
+      padding: 19px 20px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .check-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+    }
+
+    .check-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .result-box {
+      margin-top: 22px;
+      background: rgba(5, 9, 14, 0.94);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 24px;
+      display: none;
+    }
+
+    .result-box.show {
+      display: block;
+    }
+
+    .result-label {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(141, 255, 0, 0.72);
+      margin-bottom: 10px;
+    }
+
+    .result-title {
+      font-size: 30px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .result-reason {
+      font-size: 17px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 18px;
+    }
+
+    .result-extra {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .result-stat {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .result-stat small {
+      display: block;
+      font-size: 12px;
+      color: rgba(255,255,255,0.48);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .result-stat strong {
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .features,
+    .faq {
+      padding: 40px 0 90px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 28px;
+    }
+
+    .card {
+      background: rgba(5, 9, 14, 0.8);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 24px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .card p {
+      margin: 0;
+      color: rgba(255,255,255,0.68);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .faq-list {
+      width: min(860px, 100%);
+      margin: 28px auto 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .faq-item {
+      background: rgba(5, 9, 14, 0.82);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 20px 22px;
+    }
+
+    .faq-item h4 {
+      margin: 0 0 8px;
+      font-size: 19px;
+    }
+
+    .faq-item p {
+      margin: 0;
+      color: rgba(255,255,255,0.68);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        min-height: 340px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        gap: 18px;
+        font-size: 15px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .nav-inner {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .hero {
+        padding-top: 40px;
+      }
+
+      .hero h1 {
+        max-width: 100%;
+      }
+
+      .result-extra {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <div class="logo">Vintage <span>Karo</span></div>
+
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#sofunktionierts">So funktioniert's</a>
+        <a href="#faq">FAQ</a>
+        <a href="#upload" class="nav-btn">Check starten</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <h1>Vintage-Karo –<br>Checke ob dein<br>Item echt oder<br>fake ist.</h1>
+
+        <p class="main">
+          Lade einfach Bilder von deinem Item hoch und bekomme in Sekunden eine Einschätzung,
+          ob es echt oder fake ist.
+        </p>
+
+        <p class="sub">
+          Perfekt für Vinted, Reselling und alle, die keine Fakes kaufen wollen.
+        </p>
+
+        <div class="scroll-note">↓ Scroll down zum Hochladen</div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-inner">
+          <div class="phone-icon">📱</div>
+          <div class="check-mark">✔</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="upload-section" id="upload">
+    <div class="container">
+      <h2 class="section-title">Foto hochladen</h2>
+
+      <div class="upload-wrap">
+        <label class="drop-zone" id="dropZone">
+          <div class="drop-zone-content">
+            <div class="upload-icon">⇪</div>
+            <div class="drop-title">Zieh dein Bild hier rein oder wähle eine Datei aus</div>
+            <div class="drop-sub">JPG, PNG oder WebP · Max. 10MB</div>
+          </div>
+          <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp" />
+        </label>
+
+        <div class="preview-box" id="previewBox">
+          <img id="previewThumb" class="preview-thumb" alt="Vorschau" />
+          <div class="preview-info">
+            <div class="preview-name" id="fileName">Dateiname</div>
+            <div class="preview-size" id="fileSize">0 MB</div>
+          </div>
+        </div>
+
+        <button class="check-btn" id="checkBtn">Check starten</button>
+
+        <div class="result-box" id="resultBox">
+          <div class="result-label">Ergebnis</div>
+          <div class="result-title" id="resultTitle">Warte auf Analyse</div>
+          <div class="result-reason" id="resultReason">
+            Lade ein Bild hoch und starte den Check.
+          </div>
+
+          <div class="result-extra">
+            <div class="result-stat">
+              <small>Confidence</small>
+              <strong id="resultConfidence">--%</strong>
+            </div>
+
+            <div class="result-stat">
+              <small>Status</small>
+              <strong id="resultStatus">--</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="container">
+      <h2 class="section-title">Features</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Schnelle Analyse</h3>
+          <p>Dein Bild wird direkt geprüft und du bekommst schnell eine erste Einschätzung.</p>
+        </div>
+        <div class="card">
+          <h3>Klare Begründung</h3>
+          <p>Die Seite zeigt nicht nur echt oder fake, sondern auch kurz warum das Ergebnis so ausfällt.</p>
+        </div>
+        <div class="card">
+          <h3>Perfekt für Reselling</h3>
+          <p>Ideal für Vinted, Streetwear, Vintage und alle, die beim Kaufen sicherer sein wollen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="sofunktionierts">
+    <div class="container">
+      <h2 class="section-title">So funktioniert's</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>1. Bild hochladen</h3>
+          <p>Lade dein Item als Bild hoch. Am besten klar und gut belichtet.</p>
+        </div>
+        <div class="card">
+          <h3>2. Check starten</h3>
+          <p>Klick auf den Button und die Analyse wird gestartet.</p>
+        </div>
+        <div class="card">
+          <h3>3. Ergebnis bekommen</h3>
+          <p>Du siehst direkt, ob das Item eher echt, fake oder unsicher ist.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="container">
+      <h2 class="section-title">FAQ</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <h4>Ist das Ergebnis 100% sicher?</h4>
+          <p>Nein. Es ist eine erste Einschätzung anhand sichtbarer Details und ersetzt keine Expertenprüfung.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Welche Bilder sind am besten?</h4>
+          <p>Am besten Front, Back, Tag, Wash Tag, Logo und Nahaufnahmen von wichtigen Details.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Für wen ist das gedacht?</h4>
+          <p>Für Vinted, Reseller und alle, die Fakes vermeiden wollen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const fileInput = document.getElementById("fileInput");
+    const previewBox = document.getElementById("previewBox");
+    const previewThumb = document.getElementById("previewThumb");
+    const fileName = document.getElementById("fileName");
+    const fileSize = document.getElementById("fileSize");
+    const checkBtn = document.getElementById("checkBtn");
+    const resultBox = document.getElementById("resultBox");
+    const resultTitle = document.getElementById("resultTitle");
+    const resultReason = document.getElementById("resultReason");
+    const resultConfidence = document.getElementById("resultConfidence");
+    const resultStatus = document.getElementById("resultStatus");
+    const dropZone = document.getElementById("dropZone");
+
+    let currentFile = null;
+
+    function formatFileSize(bytes) {
+      const mb = bytes / (1024 * 1024);
+      return mb.toFixed(2) + " MB";
+    }
+
+    fileInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
+
+      currentFile = file;
+      const imageUrl = URL.createObjectURL(file);
+
+      previewThumb.src = imageUrl;
+      fileName.textContent = file.name;
+      fileSize.textContent = formatFileSize(file.size);
+      previewBox.classList.add("show");
+
+      resultBox.classList.remove("show");
+    });
+
+    ["dragenter", "dragover"].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropZone.classList.add("dragover");
+      });
+    });
+
+    ["dragleave", "drop"].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("dragover");
+      });
+    });
+
+    dropZone.addEventListener("drop", (e) => {
+      const file = e.dataTransfer.files[0];
+      if (!file || !file.type.startsWith("image/")) return;
+
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(file);
+      fileInput.files = dataTransfer.files;
+      fileInput.dispatchEvent(new Event("change"));
+    });
+
+    checkBtn.addEventListener("click", function () {
+      if (!currentFile) {
+        resultBox.classList.add("show");
+        resultTitle.textContent = "Kein Bild ausgewählt";
+        resultReason.textContent = "Lade zuerst ein Bild hoch, bevor du den Check startest.";
+        resultConfidence.textContent = "--%";
+        resultStatus.textContent = "Fehlt";
+        return;
+      }
+
+      checkBtn.disabled = true;
+      checkBtn.textContent = "Analysiere...";
+
+      resultBox.classList.add("show");
+      resultTitle.textContent = "Bild wird analysiert...";
+      resultReason.textContent = "Bitte kurz warten.";
+      resultConfidence.textContent = "...";
+      resultStatus.textContent = "...";
+
+      setTimeout(() => {
+        const outcomes = [
+          {
+            title: "Wahrscheinlich echt",
+            reason: "Logo, Verarbeitung und sichtbare Details wirken stimmig und sauber.",
+            confidence: "84%",
+            status: "Echt"
+          },
+          {
+            title: "Wahrscheinlich fake",
+            reason: "Schrift, Tag oder Verarbeitung wirken untypisch und nicht sauber genug.",
+            confidence: "79%",
+            status: "Fake"
+          },
+          {
+            title: "Unsicher",
+            reason: "Für eine genauere Einschätzung werden mehr Bilder von Tag, Logo und Nähten benötigt.",
+            confidence: "61%",
+            status: "Unsicher"
+          }
+        ];
+
+        const random = outcomes[Math.floor(Math.random() * outcomes.length)];
+
+        resultTitle.textContent = random.title;
+        resultReason.textContent = random.reason;
+        resultConfidence.textContent = random.confidence;
+        resultStatus.textContent = random.status;
+
+        checkBtn.disabled = false;
+        checkBtn.textContent = "Check starten";
+      }, 1600);
+    });
+  </script>
+</body>
+</html>
