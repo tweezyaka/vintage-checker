@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vintage-Karo</title>
   <style>
     * { box-sizing: border-box; }
@@ -33,9 +33,9 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(0,0,0,0.88);
+      background: rgba(0, 0, 0, 0.88);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(132,255,0,0.12);
+      border-bottom: 1px solid rgba(132, 255, 0, 0.12);
     }
 
     .nav-inner {
@@ -60,7 +60,7 @@
       align-items: center;
       gap: 34px;
       font-size: 17px;
-      color: rgba(255,255,255,0.92);
+      color: rgba(255, 255, 255, 0.92);
     }
 
     .nav-btn {
@@ -69,6 +69,12 @@
       font-weight: 800;
       padding: 15px 22px;
       border-radius: 10px;
+      transition: 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
     }
 
     .hero {
@@ -98,7 +104,7 @@
       max-width: 650px;
       font-size: 21px;
       line-height: 1.6;
-      color: rgba(255,255,255,0.84);
+      color: rgba(255, 255, 255, 0.84);
     }
 
     .hero p.sub {
@@ -106,23 +112,23 @@
       max-width: 650px;
       font-size: 17px;
       line-height: 1.7;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255, 255, 255, 0.5);
     }
 
     .scroll-note {
-      color: rgba(255,255,255,0.68);
+      color: rgba(255, 255, 255, 0.68);
       font-size: 16px;
     }
 
     .hero-card {
-      background: rgba(0,0,0,0.58);
-      border: 1px solid rgba(255,255,255,0.04);
+      background: rgba(0, 0, 0, 0.58);
+      border: 1px solid rgba(255, 255, 255, 0.04);
       border-radius: 22px;
       min-height: 430px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 10px 60px rgba(0,0,0,0.35);
+      box-shadow: 0 10px 60px rgba(0, 0, 0, 0.35);
       overflow: hidden;
     }
 
@@ -130,10 +136,10 @@
       width: 82%;
       aspect-ratio: 1 / 1;
       border-radius: 26px;
-      border: 1px solid rgba(141,255,0,0.15);
+      border: 1px solid rgba(141, 255, 0, 0.15);
       background:
-        radial-gradient(circle at center, rgba(141,255,0,0.18), transparent 55%),
-        linear-gradient(135deg, rgba(141,255,0,0.08), rgba(255,255,255,0.02));
+        radial-gradient(circle at center, rgba(141, 255, 0, 0.18), transparent 55%),
+        linear-gradient(135deg, rgba(141, 255, 0, 0.08), rgba(255,255,255,0.02));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -142,12 +148,14 @@
 
     .phone-icon {
       font-size: 120px;
+      filter: drop-shadow(0 0 22px rgba(141, 255, 0, 0.35));
     }
 
     .check-mark {
       position: absolute;
       font-size: 100px;
       color: #8dff00;
+      filter: drop-shadow(0 0 18px rgba(141, 255, 0, 0.4));
     }
 
     .upload-section {
@@ -162,22 +170,28 @@
     }
 
     .upload-wrap {
-      width: min(760px, 100%);
+      width: min(900px, 100%);
       margin: 0 auto;
     }
 
     .drop-zone {
       position: relative;
-      min-height: 280px;
-      border: 2px dashed rgba(255,255,255,0.16);
+      min-height: 260px;
+      border: 2px dashed rgba(255, 255, 255, 0.16);
       border-radius: 18px;
-      background: rgba(3,7,12,0.7);
+      background: rgba(3, 7, 12, 0.7);
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       padding: 26px;
+      transition: 0.2s ease;
       overflow: hidden;
+    }
+
+    .drop-zone.dragover {
+      border-color: rgba(141, 255, 0, 0.7);
+      background: rgba(10, 16, 8, 0.85);
     }
 
     .drop-zone-content {
@@ -191,7 +205,7 @@
     }
 
     .drop-title {
-      font-size: 21px;
+      font-size: 22px;
       font-weight: 800;
       margin-bottom: 10px;
     }
@@ -199,6 +213,7 @@
     .drop-sub {
       font-size: 16px;
       color: rgba(255,255,255,0.54);
+      max-width: 700px;
     }
 
     .drop-zone input {
@@ -208,24 +223,26 @@
       cursor: pointer;
     }
 
-    .preview-box {
+    .preview-grid {
       margin-top: 18px;
-      background: rgba(6,10,16,0.95);
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .preview-box {
+      background: rgba(6, 10, 16, 0.95);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 14px;
       padding: 16px 18px;
-      display: none;
+      display: flex;
       align-items: center;
       gap: 14px;
     }
 
-    .preview-box.show {
-      display: flex;
-    }
-
     .preview-thumb {
-      width: 52px;
-      height: 52px;
+      width: 56px;
+      height: 56px;
       border-radius: 10px;
       object-fit: cover;
       background: #111;
@@ -262,11 +279,17 @@
       font-size: 20px;
       padding: 19px 20px;
       cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .check-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
     }
 
     .result-box {
       margin-top: 22px;
-      background: rgba(5,9,14,0.94);
+      background: rgba(5, 9, 14, 0.94);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 18px;
       padding: 24px;
@@ -281,7 +304,7 @@
       font-size: 13px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(141,255,0,0.72);
+      color: rgba(141, 255, 0, 0.72);
       margin-bottom: 10px;
     }
 
@@ -302,6 +325,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 14px;
+      margin-bottom: 14px;
     }
 
     .result-stat {
@@ -325,7 +349,39 @@
       font-weight: 900;
     }
 
-    .features, .faq {
+    .list-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 14px;
+    }
+
+    .list-box h4 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .list-box ul {
+      margin: 0;
+      padding-left: 18px;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+    }
+
+    .notice-box {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 14px;
+      background: rgba(141,255,0,0.06);
+      border: 1px solid rgba(141,255,0,0.14);
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .features,
+    .faq {
       padding: 40px 0 90px;
     }
 
@@ -337,7 +393,7 @@
     }
 
     .card {
-      background: rgba(5,9,14,0.8);
+      background: rgba(5, 9, 14, 0.8);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 18px;
       padding: 24px;
@@ -363,7 +419,7 @@
     }
 
     .faq-item {
-      background: rgba(5,9,14,0.82);
+      background: rgba(5, 9, 14, 0.82);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 16px;
       padding: 20px 22px;
@@ -381,10 +437,22 @@
     }
 
     @media (max-width: 980px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .hero-card { min-height: 340px; }
-      .cards { grid-template-columns: 1fr; }
-      .nav-links { gap: 18px; font-size: 15px; }
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        min-height: 340px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        gap: 18px;
+        font-size: 15px;
+      }
     }
 
     @media (max-width: 700px) {
@@ -400,9 +468,17 @@
         flex-wrap: wrap;
       }
 
-      .hero { padding-top: 40px; }
-      .hero h1 { max-width: 100%; }
-      .result-extra { grid-template-columns: 1fr; }
+      .hero {
+        padding-top: 40px;
+      }
+
+      .hero h1 {
+        max-width: 100%;
+      }
+
+      .result-extra {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -410,6 +486,7 @@
   <header class="navbar">
     <div class="container nav-inner">
       <div class="logo">Vintage <span>Karo</span></div>
+
       <nav class="nav-links">
         <a href="#features">Features</a>
         <a href="#sofunktionierts">So funktioniert's</a>
@@ -423,13 +500,16 @@
     <div class="container hero-grid">
       <div>
         <h1>Vintage-Karo –<br>Checke ob dein<br>Item echt oder<br>fake ist.</h1>
+
         <p class="main">
-          Lade einfach Bilder von deinem Item hoch und bekomme in Sekunden eine Einschätzung,
-          ob es echt oder fake ist.
+          Lade mehrere Bilder von deinem Item hoch und bekomme eine erste Einschätzung
+          anhand sichtbarer Details.
         </p>
+
         <p class="sub">
           Perfekt für Vinted, Reselling und alle, die keine Fakes kaufen wollen.
         </p>
+
         <div class="scroll-note">↓ Scroll down zum Hochladen</div>
       </div>
 
@@ -450,26 +530,20 @@
         <label class="drop-zone" id="dropZone">
           <div class="drop-zone-content">
             <div class="upload-icon">⇪</div>
-            <div class="drop-title">Zieh dein Bild hier rein oder wähle eine Datei aus</div>
-            <div class="drop-sub">JPG, PNG oder WebP · Max. 10MB</div>
+            <div class="drop-title">Zieh bis zu 6 Bilder hier rein oder wähle Dateien aus</div>
+            <div class="drop-sub">Am besten Front, Back, Tag, Wash Tag, Logo und Nähte · JPG, PNG oder WebP</div>
           </div>
-          <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp">
+          <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp" multiple />
         </label>
 
-        <div class="preview-box" id="previewBox">
-          <img id="previewThumb" class="preview-thumb" alt="Vorschau">
-          <div class="preview-info">
-            <div class="preview-name" id="fileName">Dateiname</div>
-            <div class="preview-size" id="fileSize">0 MB</div>
-          </div>
-        </div>
+        <div class="preview-grid" id="previewGrid"></div>
 
         <button class="check-btn" id="checkBtn">Check starten</button>
 
         <div class="result-box" id="resultBox">
           <div class="result-label">Ergebnis</div>
           <div class="result-title" id="resultTitle">Warte auf Analyse</div>
-          <div class="result-reason" id="resultReason">Lade ein Bild hoch und starte den Check.</div>
+          <div class="result-reason" id="resultReason">Lade Bilder hoch und starte den Check.</div>
 
           <div class="result-extra">
             <div class="result-stat">
@@ -482,6 +556,26 @@
               <strong id="resultStatus">--</strong>
             </div>
           </div>
+
+          <div class="list-box">
+            <h4>Erkannte Hinweise</h4>
+            <ul id="detailList">
+              <li>Noch keine Analyse gestartet.</li>
+            </ul>
+          </div>
+
+          <div class="list-box">
+            <h4>Was noch fehlt</h4>
+            <ul id="missingList">
+              <li>Front, Back, Tag, Wash Tag, Logo und Nähte helfen am meisten.</li>
+            </ul>
+          </div>
+
+          <div class="notice-box">
+            Diese kostenlose GitHub-Version arbeitet ohne echte Live-KI und ohne Marken-Datenbank.
+            Sie gibt deshalb nur eine vorsichtige Ersteinschätzung nach Bildmenge und sichtbaren Hinweisen.
+            Für echte Prüfung mit API wäre später ein Backend nötig.
+          </div>
         </div>
       </div>
     </div>
@@ -492,16 +586,16 @@
       <h2 class="section-title">Features</h2>
       <div class="cards">
         <div class="card">
-          <h3>Schnelle Analyse</h3>
-          <p>Dein Bild wird direkt geprüft und du bekommst schnell eine erste Einschätzung.</p>
+          <h3>Mehrere Bilder</h3>
+          <p>Du kannst direkt mehrere Bilder hochladen statt nur einem einzelnen Bild.</p>
         </div>
         <div class="card">
-          <h3>Klare Begründung</h3>
-          <p>Die Seite zeigt nicht nur echt oder fake, sondern auch kurz warum das Ergebnis so ausfällt.</p>
+          <h3>Kein kompletter Zufall</h3>
+          <p>Die Einschätzung hängt jetzt von Bildanzahl und sichtbaren Angaben ab und springt nicht komplett random.</p>
         </div>
         <div class="card">
-          <h3>Perfekt für Reselling</h3>
-          <p>Ideal für Vinted, Streetwear, Vintage und alle, die beim Kaufen sicherer sein wollen.</p>
+          <h3>Saubere Vorschau</h3>
+          <p>Alle ausgewählten Bilder werden übersichtlich angezeigt, bevor du den Check startest.</p>
         </div>
       </div>
     </div>
@@ -512,16 +606,16 @@
       <h2 class="section-title">So funktioniert's</h2>
       <div class="cards">
         <div class="card">
-          <h3>1. Bild hochladen</h3>
-          <p>Lade dein Item als Bild hoch. Am besten klar und gut belichtet.</p>
+          <h3>1. Bilder hochladen</h3>
+          <p>Lade am besten Front, Back, Tag, Wash Tag, Logo und Nähte hoch.</p>
         </div>
         <div class="card">
           <h3>2. Check starten</h3>
-          <p>Klick auf den Button und die Analyse wird gestartet.</p>
+          <p>Die Seite prüft, wie vollständig und brauchbar deine Bilder für eine Einschätzung sind.</p>
         </div>
         <div class="card">
-          <h3>3. Ergebnis bekommen</h3>
-          <p>Du siehst direkt, ob das Item eher echt, fake oder unsicher ist.</p>
+          <h3>3. Ergebnis ansehen</h3>
+          <p>Du bekommst eine vorsichtige Einschätzung mit Hinweisen, was stimmig wirkt oder noch fehlt.</p>
         </div>
       </div>
     </div>
@@ -533,15 +627,15 @@
       <div class="faq-list">
         <div class="faq-item">
           <h4>Ist das Ergebnis 100% sicher?</h4>
-          <p>Nein. Es ist eine erste Einschätzung anhand sichtbarer Details und ersetzt keine Expertenprüfung.</p>
+          <p>Nein. Diese GitHub-Version ist nur eine erste Einschätzung und ersetzt keine echte Expertenprüfung.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Vergleicht die Seite mit seriösen Quellen?</h4>
+          <p>Noch nicht live. Dafür bräuchte die Seite später ein Backend und eine echte API-Anbindung.</p>
         </div>
         <div class="faq-item">
           <h4>Welche Bilder sind am besten?</h4>
-          <p>Am besten Front, Back, Tag, Wash Tag, Logo und Nahaufnahmen von wichtigen Details.</p>
-        </div>
-        <div class="faq-item">
-          <h4>Für wen ist das gedacht?</h4>
-          <p>Für Vinted, Reseller und alle, die Fakes vermeiden wollen.</p>
+          <p>Am besten Front, Back, Tag, Wash Tag, Logo und Nahaufnahmen von Nähten oder Prints.</p>
         </div>
       </div>
     </div>
@@ -549,113 +643,196 @@
 
   <script>
     const fileInput = document.getElementById("fileInput");
-    const previewBox = document.getElementById("previewBox");
-    const previewThumb = document.getElementById("previewThumb");
-    const fileName = document.getElementById("fileName");
-    const fileSize = document.getElementById("fileSize");
+    const previewGrid = document.getElementById("previewGrid");
     const checkBtn = document.getElementById("checkBtn");
     const resultBox = document.getElementById("resultBox");
     const resultTitle = document.getElementById("resultTitle");
     const resultReason = document.getElementById("resultReason");
     const resultConfidence = document.getElementById("resultConfidence");
     const resultStatus = document.getElementById("resultStatus");
+    const detailList = document.getElementById("detailList");
+    const missingList = document.getElementById("missingList");
     const dropZone = document.getElementById("dropZone");
 
-    let currentFile = null;
+    let currentFiles = [];
 
     function formatFileSize(bytes) {
       const mb = bytes / (1024 * 1024);
       return mb.toFixed(2) + " MB";
     }
 
-    fileInput.addEventListener("change", function () {
-      const file = this.files[0];
-      if (!file) return;
+    function renderPreview(files) {
+      previewGrid.innerHTML = "";
 
-      currentFile = file;
-      const imageUrl = URL.createObjectURL(file);
+      files.forEach((file) => {
+        const url = URL.createObjectURL(file);
 
-      previewThumb.src = imageUrl;
-      fileName.textContent = file.name;
-      fileSize.textContent = formatFileSize(file.size);
-      previewBox.classList.add("show");
+        const box = document.createElement("div");
+        box.className = "preview-box";
+
+        box.innerHTML = `
+          <img class="preview-thumb" src="${url}" alt="${file.name}">
+          <div class="preview-info">
+            <div class="preview-name">${file.name}</div>
+            <div class="preview-size">${formatFileSize(file.size)}</div>
+          </div>
+        `;
+
+        previewGrid.appendChild(box);
+      });
+    }
+
+    function setFiles(fileList) {
+      const files = Array.from(fileList || [])
+        .filter(file => file.type.startsWith("image/"))
+        .slice(0, 6);
+
+      currentFiles = files;
+      renderPreview(files);
       resultBox.classList.remove("show");
+    }
+
+    fileInput.addEventListener("change", function () {
+      setFiles(this.files);
     });
 
-    ["dragenter", "dragover"].forEach(function(eventName) {
-      dropZone.addEventListener(eventName, function(e) {
+    ["dragenter", "dragover"].forEach((eventName) => {
+      dropZone.addEventListener(eventName, (e) => {
         e.preventDefault();
         dropZone.classList.add("dragover");
       });
     });
 
-    ["dragleave", "drop"].forEach(function(eventName) {
-      dropZone.addEventListener(eventName, function(e) {
+    ["dragleave", "drop"].forEach((eventName) => {
+      dropZone.addEventListener(eventName, (e) => {
         e.preventDefault();
         dropZone.classList.remove("dragover");
       });
     });
 
-    dropZone.addEventListener("drop", function(e) {
-      const file = e.dataTransfer.files[0];
-      if (!file || !file.type.startsWith("image/")) return;
-
+    dropZone.addEventListener("drop", (e) => {
+      const files = e.dataTransfer.files;
       const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(file);
+
+      Array.from(files)
+        .filter(file => file.type.startsWith("image/"))
+        .slice(0, 6)
+        .forEach(file => dataTransfer.items.add(file));
+
       fileInput.files = dataTransfer.files;
-      fileInput.dispatchEvent(new Event("change"));
+      setFiles(dataTransfer.files);
     });
 
-    checkBtn.addEventListener("click", function() {
-      if (!currentFile) {
-        resultBox.classList.add("show");
+    checkBtn.addEventListener("click", function () {
+      resultBox.classList.add("show");
+
+      if (!currentFiles.length) {
         resultTitle.textContent = "Kein Bild ausgewählt";
-        resultReason.textContent = "Lade zuerst ein Bild hoch, bevor du den Check startest.";
+        resultReason.textContent = "Lade zuerst Bilder hoch, bevor du den Check startest.";
         resultConfidence.textContent = "--%";
         resultStatus.textContent = "Fehlt";
+        detailList.innerHTML = "<li>Noch keine Bilder vorhanden.</li>";
+        missingList.innerHTML = "<li>Lade mindestens 3 bis 6 brauchbare Bilder hoch.</li>";
         return;
       }
 
       checkBtn.disabled = true;
       checkBtn.textContent = "Analysiere...";
 
-      resultBox.classList.add("show");
-      resultTitle.textContent = "Bild wird analysiert...";
-      resultReason.textContent = "Bitte kurz warten.";
-      resultConfidence.textContent = "...";
-      resultStatus.textContent = "...";
+      setTimeout(() => {
+        const count = currentFiles.length;
+        const names = currentFiles.map(f => f.name.toLowerCase()).join(" ");
+        const totalSize = currentFiles.reduce((sum, f) => sum + f.size, 0);
+        const avgSize = totalSize / count;
 
-      setTimeout(function() {
-        const outcomes = [
-          {
-            title: "Wahrscheinlich echt",
-            reason: "Logo, Verarbeitung und sichtbare Details wirken stimmig und sauber.",
-            confidence: "84%",
-            status: "Echt"
-          },
-          {
-            title: "Wahrscheinlich fake",
-            reason: "Schrift, Tag oder Verarbeitung wirken untypisch und nicht sauber genug.",
-            confidence: "79%",
-            status: "Fake"
-          },
-          {
-            title: "Unsicher",
-            reason: "Für eine genauere Einschätzung werden mehr Bilder von Tag, Logo und Nähten benötigt.",
-            confidence: "61%",
-            status: "Unsicher"
-          }
-        ];
+        const details = [];
+        const missing = [];
 
-        const random = outcomes[Math.floor(Math.random() * outcomes.length)];
-        resultTitle.textContent = random.title;
-        resultReason.textContent = random.reason;
-        resultConfidence.textContent = random.confidence;
-        resultStatus.textContent = random.status;
+        if (count >= 5) {
+          details.push("Es wurden mehrere Bilder hochgeladen, was die Einschätzung verbessert.");
+        } else if (count >= 3) {
+          details.push("Es sind mehrere Bilder vorhanden, aber noch nicht maximal hilfreich.");
+        } else {
+          details.push("Es sind nur wenige Bilder vorhanden.");
+        }
+
+        if (avgSize > 200000) {
+          details.push("Die Bilddateien wirken nicht extrem klein und dürften brauchbare Details zeigen.");
+        } else {
+          details.push("Die Bildqualität könnte zu niedrig sein.");
+        }
+
+        if (names.includes("tag") || names.includes("label")) {
+          details.push("Mindestens ein Tag/Label-Bild scheint vorhanden zu sein.");
+        } else {
+          missing.push("Ein klares Bild vom Tag oder Label fehlt.");
+        }
+
+        if (names.includes("logo")) {
+          details.push("Mindestens ein Logo-Bild scheint vorhanden zu sein.");
+        } else {
+          missing.push("Ein klares Nahbild vom Logo fehlt.");
+        }
+
+        if (names.includes("wash")) {
+          details.push("Ein Wash-Tag scheint vorhanden zu sein.");
+        } else {
+          missing.push("Ein Wash-Tag oder Care-Label wäre hilfreich.");
+        }
+
+        if (count < 2) missing.push("Ein Front- und Back-Bild wären wichtig.");
+        if (count < 4) missing.push("Mehrere Perspektiven würden die Einschätzung verbessern.");
+
+        let title = "";
+        let status = "";
+        let confidence = 0;
+        let reason = "";
+
+        if (count >= 5 && avgSize > 200000) {
+          title = "Eher brauchbare Ersteinschätzung";
+          status = "Unsicher";
+          confidence = 72;
+          reason = "Die Bildmenge ist gut genug für eine vorsichtige Ersteinschätzung. Ohne echte Live-Referenzprüfung bleibt das Ergebnis aber absichtlich unsicher.";
+        } else if (count >= 3) {
+          title = "Noch zu unsicher";
+          status = "Unsicher";
+          confidence = 58;
+          reason = "Es sind einige Bilder vorhanden, aber für eine stärkere Einschätzung fehlen meist noch wichtigere Detailfotos.";
+        } else {
+          title = "Zu wenig Material";
+          status = "Unsicher";
+          confidence = 39;
+          reason = "Mit so wenigen Bildern sollte man nichts sicher als echt oder fake einstufen.";
+        }
+
+        resultTitle.textContent = title;
+        resultReason.textContent = reason;
+        resultConfidence.textContent = confidence + "%";
+        resultStatus.textContent = status;
+
+        detailList.innerHTML = "";
+        details.forEach(item => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          detailList.appendChild(li);
+        });
+
+        missingList.innerHTML = "";
+        if (!missing.length) {
+          const li = document.createElement("li");
+          li.textContent = "Für diese Gratis-Version wurden schon viele sinnvolle Bilder hochgeladen.";
+          missingList.appendChild(li);
+        } else {
+          missing.forEach(item => {
+            const li = document.createElement("li");
+            li.textContent = item;
+            missingList.appendChild(li);
+          });
+        }
 
         checkBtn.disabled = false;
         checkBtn.textContent = "Check starten";
-      }, 1600);
+      }, 1200);
     });
   </script>
 </body>
