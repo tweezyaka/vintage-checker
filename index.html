@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vintage-Karo</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       background:
-        linear-gradient(rgba(132, 255, 0, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(132, 255, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(rgba(132,255,0,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(132,255,0,0.05) 1px, transparent 1px),
         radial-gradient(circle at top, #07110d 0%, #04070c 45%, #020307 100%);
       background-size: 40px 40px, 40px 40px, cover;
       color: white;
@@ -38,9 +33,9 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(0, 0, 0, 0.88);
+      background: rgba(0,0,0,0.88);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(132, 255, 0, 0.12);
+      border-bottom: 1px solid rgba(132,255,0,0.12);
     }
 
     .nav-inner {
@@ -54,7 +49,6 @@
     .logo {
       font-size: 20px;
       font-weight: 800;
-      letter-spacing: -0.4px;
     }
 
     .logo span {
@@ -66,7 +60,7 @@
       align-items: center;
       gap: 34px;
       font-size: 17px;
-      color: rgba(255, 255, 255, 0.92);
+      color: rgba(255,255,255,0.92);
     }
 
     .nav-btn {
@@ -75,12 +69,6 @@
       font-weight: 800;
       padding: 15px 22px;
       border-radius: 10px;
-      transition: 0.2s ease;
-    }
-
-    .nav-btn:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.05);
     }
 
     .hero {
@@ -102,7 +90,6 @@
       line-height: 0.95;
       margin: 0 0 28px;
       font-weight: 900;
-      letter-spacing: -2px;
       max-width: 650px;
     }
 
@@ -111,7 +98,7 @@
       max-width: 650px;
       font-size: 21px;
       line-height: 1.6;
-      color: rgba(255, 255, 255, 0.84);
+      color: rgba(255,255,255,0.84);
     }
 
     .hero p.sub {
@@ -119,23 +106,23 @@
       max-width: 650px;
       font-size: 17px;
       line-height: 1.7;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255,255,255,0.5);
     }
 
     .scroll-note {
-      color: rgba(255, 255, 255, 0.68);
+      color: rgba(255,255,255,0.68);
       font-size: 16px;
     }
 
     .hero-card {
-      background: rgba(0, 0, 0, 0.58);
-      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: rgba(0,0,0,0.58);
+      border: 1px solid rgba(255,255,255,0.04);
       border-radius: 22px;
       min-height: 430px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 10px 60px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 10px 60px rgba(0,0,0,0.35);
       overflow: hidden;
     }
 
@@ -143,10 +130,10 @@
       width: 82%;
       aspect-ratio: 1 / 1;
       border-radius: 26px;
-      border: 1px solid rgba(141, 255, 0, 0.15);
+      border: 1px solid rgba(141,255,0,0.15);
       background:
-        radial-gradient(circle at center, rgba(141, 255, 0, 0.18), transparent 55%),
-        linear-gradient(135deg, rgba(141, 255, 0, 0.08), rgba(255,255,255,0.02));
+        radial-gradient(circle at center, rgba(141,255,0,0.18), transparent 55%),
+        linear-gradient(135deg, rgba(141,255,0,0.08), rgba(255,255,255,0.02));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -155,14 +142,12 @@
 
     .phone-icon {
       font-size: 120px;
-      filter: drop-shadow(0 0 22px rgba(141, 255, 0, 0.35));
     }
 
     .check-mark {
       position: absolute;
       font-size: 100px;
       color: #8dff00;
-      filter: drop-shadow(0 0 18px rgba(141, 255, 0, 0.4));
     }
 
     .upload-section {
@@ -174,7 +159,6 @@
       font-size: clamp(36px, 5vw, 58px);
       margin: 0 0 44px;
       font-weight: 900;
-      letter-spacing: -1px;
     }
 
     .upload-wrap {
@@ -185,21 +169,15 @@
     .drop-zone {
       position: relative;
       min-height: 280px;
-      border: 2px dashed rgba(255, 255, 255, 0.16);
+      border: 2px dashed rgba(255,255,255,0.16);
       border-radius: 18px;
-      background: rgba(3, 7, 12, 0.7);
+      background: rgba(3,7,12,0.7);
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       padding: 26px;
-      transition: 0.2s ease;
       overflow: hidden;
-    }
-
-    .drop-zone.dragover {
-      border-color: rgba(141, 255, 0, 0.7);
-      background: rgba(10, 16, 8, 0.85);
     }
 
     .drop-zone-content {
@@ -232,7 +210,7 @@
 
     .preview-box {
       margin-top: 18px;
-      background: rgba(6, 10, 16, 0.95);
+      background: rgba(6,10,16,0.95);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 14px;
       padding: 16px 18px;
@@ -284,22 +262,11 @@
       font-size: 20px;
       padding: 19px 20px;
       cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .check-btn:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.03);
-    }
-
-    .check-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
     }
 
     .result-box {
       margin-top: 22px;
-      background: rgba(5, 9, 14, 0.94);
+      background: rgba(5,9,14,0.94);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 18px;
       padding: 24px;
@@ -314,7 +281,7 @@
       font-size: 13px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(141, 255, 0, 0.72);
+      color: rgba(141,255,0,0.72);
       margin-bottom: 10px;
     }
 
@@ -358,8 +325,7 @@
       font-weight: 900;
     }
 
-    .features,
-    .faq {
+    .features, .faq {
       padding: 40px 0 90px;
     }
 
@@ -371,7 +337,7 @@
     }
 
     .card {
-      background: rgba(5, 9, 14, 0.8);
+      background: rgba(5,9,14,0.8);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 18px;
       padding: 24px;
@@ -397,7 +363,7 @@
     }
 
     .faq-item {
-      background: rgba(5, 9, 14, 0.82);
+      background: rgba(5,9,14,0.82);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 16px;
       padding: 20px 22px;
@@ -415,22 +381,10 @@
     }
 
     @media (max-width: 980px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-card {
-        min-height: 340px;
-      }
-
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .nav-links {
-        gap: 18px;
-        font-size: 15px;
-      }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-card { min-height: 340px; }
+      .cards { grid-template-columns: 1fr; }
+      .nav-links { gap: 18px; font-size: 15px; }
     }
 
     @media (max-width: 700px) {
@@ -446,17 +400,9 @@
         flex-wrap: wrap;
       }
 
-      .hero {
-        padding-top: 40px;
-      }
-
-      .hero h1 {
-        max-width: 100%;
-      }
-
-      .result-extra {
-        grid-template-columns: 1fr;
-      }
+      .hero { padding-top: 40px; }
+      .hero h1 { max-width: 100%; }
+      .result-extra { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -464,7 +410,6 @@
   <header class="navbar">
     <div class="container nav-inner">
       <div class="logo">Vintage <span>Karo</span></div>
-
       <nav class="nav-links">
         <a href="#features">Features</a>
         <a href="#sofunktionierts">So funktioniert's</a>
@@ -478,16 +423,13 @@
     <div class="container hero-grid">
       <div>
         <h1>Vintage-Karo –<br>Checke ob dein<br>Item echt oder<br>fake ist.</h1>
-
         <p class="main">
           Lade einfach Bilder von deinem Item hoch und bekomme in Sekunden eine Einschätzung,
           ob es echt oder fake ist.
         </p>
-
         <p class="sub">
           Perfekt für Vinted, Reselling und alle, die keine Fakes kaufen wollen.
         </p>
-
         <div class="scroll-note">↓ Scroll down zum Hochladen</div>
       </div>
 
@@ -511,11 +453,11 @@
             <div class="drop-title">Zieh dein Bild hier rein oder wähle eine Datei aus</div>
             <div class="drop-sub">JPG, PNG oder WebP · Max. 10MB</div>
           </div>
-          <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp" />
+          <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp">
         </label>
 
         <div class="preview-box" id="previewBox">
-          <img id="previewThumb" class="preview-thumb" alt="Vorschau" />
+          <img id="previewThumb" class="preview-thumb" alt="Vorschau">
           <div class="preview-info">
             <div class="preview-name" id="fileName">Dateiname</div>
             <div class="preview-size" id="fileSize">0 MB</div>
@@ -527,9 +469,7 @@
         <div class="result-box" id="resultBox">
           <div class="result-label">Ergebnis</div>
           <div class="result-title" id="resultTitle">Warte auf Analyse</div>
-          <div class="result-reason" id="resultReason">
-            Lade ein Bild hoch und starte den Check.
-          </div>
+          <div class="result-reason" id="resultReason">Lade ein Bild hoch und starte den Check.</div>
 
           <div class="result-extra">
             <div class="result-stat">
@@ -639,25 +579,24 @@
       fileName.textContent = file.name;
       fileSize.textContent = formatFileSize(file.size);
       previewBox.classList.add("show");
-
       resultBox.classList.remove("show");
     });
 
-    ["dragenter", "dragover"].forEach(eventName => {
-      dropZone.addEventListener(eventName, (e) => {
+    ["dragenter", "dragover"].forEach(function(eventName) {
+      dropZone.addEventListener(eventName, function(e) {
         e.preventDefault();
         dropZone.classList.add("dragover");
       });
     });
 
-    ["dragleave", "drop"].forEach(eventName => {
-      dropZone.addEventListener(eventName, (e) => {
+    ["dragleave", "drop"].forEach(function(eventName) {
+      dropZone.addEventListener(eventName, function(e) {
         e.preventDefault();
         dropZone.classList.remove("dragover");
       });
     });
 
-    dropZone.addEventListener("drop", (e) => {
+    dropZone.addEventListener("drop", function(e) {
       const file = e.dataTransfer.files[0];
       if (!file || !file.type.startsWith("image/")) return;
 
@@ -667,7 +606,7 @@
       fileInput.dispatchEvent(new Event("change"));
     });
 
-    checkBtn.addEventListener("click", function () {
+    checkBtn.addEventListener("click", function() {
       if (!currentFile) {
         resultBox.classList.add("show");
         resultTitle.textContent = "Kein Bild ausgewählt";
@@ -686,7 +625,7 @@
       resultConfidence.textContent = "...";
       resultStatus.textContent = "...";
 
-      setTimeout(() => {
+      setTimeout(function() {
         const outcomes = [
           {
             title: "Wahrscheinlich echt",
@@ -709,7 +648,6 @@
         ];
 
         const random = outcomes[Math.floor(Math.random() * outcomes.length)];
-
         resultTitle.textContent = random.title;
         resultReason.textContent = random.reason;
         resultConfidence.textContent = random.confidence;
