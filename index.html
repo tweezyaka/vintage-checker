@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Vintage-Karo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: #0f0f0f;
+      color: white;
+      text-align: center;
+    }
+    header {
+      padding: 40px;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .box {
+      margin-top: 40px;
+    }
+    input {
+      padding: 10px;
+      margin: 10px;
+    }
+    button {
+      padding: 12px 20px;
+      background: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>Vintage-Karo 🔍</header>
+
+<div class="box">
+  <h2>Bild hochladen</h2>
+  <input type="file">
+  <br>
+  <button onclick="checkItem()">Check starten</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+function checkItem() {
+  const results = [
+    "Wahrscheinlich echt ✅ – Logo und Qualität wirken sauber",
+    "Eher fake ❌ – Schrift und Tag wirken unsauber",
+    "Nicht sicher ⚠️ – Mehr Bilder nötig"
+  ];
+
+  const random = results[Math.floor(Math.random() * results.length)];
+  document.getElementById("result").innerText = random;
+}
+</script>
+
+</body>
+</html>
